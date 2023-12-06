@@ -4,6 +4,7 @@
 let currentScore = 0;
 let activePlayer = 0;
 const totalScores = [0, 0];
+let isPlaying = true;
 
 //Выборка элементов
 const score0Element = document.getElementById('score--0');
@@ -33,30 +34,46 @@ const swithActivePlayer = function () {
 };
 
 btnRoll.addEventListener('click', function () {
-  let diceNumber = Math.trunc(Math.random() * 6) + 1;
+  if (isPlaying) {
+    let diceNumber = Math.trunc(Math.random() * 6) + 1;
 
-  //Отображение игральной кости
-  diceElement.classList.remove('hidden');
-  diceElement.src = `../Pig-dice-game-/img/dice${diceNumber}.png`;
+    //Отображение игральной кости
+    diceElement.classList.remove('hidden');
+    diceElement.src = `../Pig-dice-game-/img/dice${diceNumber}.png`;
 
-  // diceElement.classList.add('roll-animation-3d');
-  // setTimeout(function () {
-  //   diceElement.src = `../Pig-dice-game-/img/dice${diceNumber}.png`;
+    // diceElement.classList.add('roll-animation-3d');
+    // setTimeout(function () {
+    //   diceElement.src = `../Pig-dice-game-/img/dice${diceNumber}.png`;
 
-  //   diceElement.classList.remove('roll-animation-3d');
-  // }, 1500);
+    //   diceElement.classList.remove('roll-animation-3d');
+    // }, 1500);
 
-  if (diceNumber !== 1) {
-    //Подсчет очков для активного игрока
-    currentScore += diceNumber;
-    document.getElementById(`current--${activePlayer}`).textContent =
-      currentScore;
-  } else swithActivePlayer();
+    if (diceNumber !== 1) {
+      //Подсчет очков для активного игрока
+      currentScore += diceNumber;
+      document.getElementById(`current--${activePlayer}`).textContent =
+        currentScore;
+    } else swithActivePlayer();
+  }
 });
 
 btnHold.addEventListener('click', function () {
-  totalScores[activePlayer] += currentScore;
-  document.getElementById(`score--${activePlayer}`).textContent =
-    totalScores[activePlayer];
-  swithActivePlayer();
+  if (isPlaying) {
+    totalScores[activePlayer] += currentScore;
+    document.getElementById(`score--${activePlayer}`).textContent =
+      totalScores[activePlayer];
+
+    if (totalScores[activePlayer] >= 100) {
+      isPlaying = false;
+      diceElement.classList.add('hidden');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add('player--winner');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+    } else {
+      swithActivePlayer();
+    }
+  }
 });
