@@ -162,3 +162,22 @@ main {
   font-weight: 700;
   color: #d50b0b;
 }
+
+.hidden {
+  display: none;
+}
+
+
+
+/* @keyframes rollDice3D {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+.roll-animation-3d {
+  animation: rollDice3D 1.5s ease-out;
+} */
