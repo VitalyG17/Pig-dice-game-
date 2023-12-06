@@ -3,7 +3,7 @@
 //Начальные значения очков и текущего игрока
 let currentScore = 0;
 let activePlayer = 0;
-const totalScores = [0, 0];
+let totalScores = [0, 0];
 let isPlaying = true;
 
 //Выборка элементов
@@ -57,6 +57,7 @@ btnRoll.addEventListener('click', function () {
   }
 });
 
+//Фиксирование очков и проверка пробеды
 btnHold.addEventListener('click', function () {
   if (isPlaying) {
     totalScores[activePlayer] += currentScore;
@@ -76,4 +77,24 @@ btnHold.addEventListener('click', function () {
       swithActivePlayer();
     }
   }
+});
+
+//Новая игра
+btnNew.addEventListener('click', function () {
+  currentScore = 0;
+  activePlayer = 0;
+  totalScores = [0, 0];
+  isPlaying = true;
+
+  score0Element.textContent = 0;
+  score1Element.textContent = 0;
+  current0Elemet.textContent = 0;
+  current1Elemet.textContent = 0;
+
+  diceElement.classList.add('hidden');
+  player0Element.classList.remove('player--winner');
+  player1Element.classList.remove('player--winner');
+  player0Element.classList.remove('player--active');
+  player1Element.classList.remove('player--active');
+  player0Element.classList.add('player--active');
 });
